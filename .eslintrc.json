@@ -1,0 +1,21 @@
+{
+  "extends": ["next/core-web-vitals"],
+  "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["next/babel"]
+    }
+  },
+  "ignorePatterns": ["scripts/**/*", "*.js"],
+  "rules": {
+    "@next/next/no-css-tags": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["style"] }],
+    "react/forbid-dom-props": "off",
+    "@next/next/no-img-element": "off",
+    "react/no-inline-styles": "off",
+    "jsx-a11y/forbid-inline-styles": "off",
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-style-tag": "off",
+    "react/no-danger": "off"
+  }
+}

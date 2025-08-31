@@ -1,0 +1,22 @@
+# Ignore scripts directory
+scripts/
+scripts/**/*
+
+# Ignore test files
+test-*.js
+*-test.js
+
+# Ignore build outputs
+.next/
+out/
+build/
+
+# Ignore node modules
+node_modules/
+
+# Ignore environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

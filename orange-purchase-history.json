@@ -1,0 +1,22 @@
+[
+  {
+    "id": "real_purchase_1755913143413",
+    "developerId": "your_developer_id",
+    "contractId": "63xxxxxxxxxxxx",
+    "country": "SEN",
+    "offerName": "SMS_OCB",
+    "bundleId": "bundle_starter_7days",
+    "bundleDescription": "Bundle 0 - 25 SMS for 25 FCFA (Starter for 7 days)",
+    "price": 25,
+    "currency": "FCFA",
+    "purchaseDate": "2025-08-23T00:12:00.000Z",
+    "paymentMode": "ORANGE_MONEY",
+    "paymentProviderOrderId": "OM_1755913143413",
+    "payerId": "221xxxxxxxxx",
+    "type": "BUNDLE_PURCHASE",
+    "oldAvailableUnits": 0,
+    "newAvailableUnits": 25,
+    "oldExpirationDate": "2025-08-23T00:12:00.000Z",
+    "newExpirationDate": "2025-08-30T23:59:59.000Z"
+  }
+]

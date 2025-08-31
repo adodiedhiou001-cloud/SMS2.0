@@ -1,0 +1,17 @@
+/* Styles pour la page des groupes de contacts */
+
+/* Couleurs dynamiques pour les groupes */
+.group-icon-bg {
+  --group-bg-color: rgba(59, 130, 246, 0.2); /* couleur par défaut */
+  background-color: var(--group-bg-color);
+}
+
+.group-icon-text {
+  --group-color: #3B82F6; /* couleur par défaut */
+  color: var(--group-color);
+}
+
+.color-picker-dot {
+  --picker-color: #3B82F6; /* couleur par défaut */
+  background-color: var(--picker-color);
+}

@@ -1,0 +1,168 @@
+/* Styles pour le composant QuotaManagement */
+.quota-progress-bar {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  height: 0.75rem;
+}
+
+.quota-progress-fill {
+  height: 0.75rem;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+
+.quota-progress-fill.low {
+  background-color: #ef4444;
+}
+
+.quota-progress-fill.medium {
+  background-color: #eab308;
+}
+
+.quota-progress-fill.good {
+  background-color: #22c55e;
+}
+
+.quota-card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.quota-spinner {
+  animation: spin 1s linear infinite;
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #2563eb;
+}
+
+.quota-alert {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.quota-alert.warning {
+  background-color: #fefce8;
+  border: 1px solid #facc15;
+  color: #a16207;
+}
+
+.quota-alert.error {
+  background-color: #fef2f2;
+  border: 1px solid #f87171;
+  color: #dc2626;
+}
+
+.quota-alert.info {
+  background-color: #eff6ff;
+  border: 1px solid #60a5fa;
+  color: #1d4ed8;
+}
+
+.quota-status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.quota-status-badge.active {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.quota-status-badge.inactive {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.quota-form-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.quota-form-input:focus {
+  box-shadow: 0 0 0 2px #2563eb;
+  border-color: transparent;
+}
+
+.quota-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.quota-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quota-btn.primary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.quota-btn.primary:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.quota-btn.success {
+  background-color: #16a34a;
+  color: white;
+}
+
+.quota-btn.success:hover:not(:disabled) {
+  background-color: #15803d;
+}
+
+.quota-btn.warning {
+  background-color: #ca8a04;
+  color: white;
+}
+
+.quota-btn.warning:hover:not(:disabled) {
+  background-color: #a16207;
+}
+
+.quota-btn.secondary {
+  background-color: #4b5563;
+  color: white;
+}
+
+.quota-btn.secondary:hover:not(:disabled) {
+  background-color: #374151;
+}
+
+.quota-table {
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+.quota-table th {
+  text-align: left;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.quota-table td {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

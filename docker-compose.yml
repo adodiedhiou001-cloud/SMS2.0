@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Application Next.js
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://sms_user:sms_password@postgres:5432/sms_pro
+      - NEXTAUTH_SECRET=your-secret-key-here
+      - NEXTAUTH_URL=http://localhost:3000
+      - ORANGE_SMS_CLIENT_ID=MNr0WscAlwy4qQ9dmfMfC4NIAmjZ5D4z
+      - ORANGE_SMS_CLIENT_SECRET=SY4hPdkZ93gvMxqe7FMk6ka6dGUtl8oLYU5ViweMZKL9
+      - JWT_SECRET=your-jwt-secret-here
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  # Base de données PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=sms_user
+      - POSTGRES_PASSWORD=sms_password
+      - POSTGRES_DB=sms_pro
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Interface d'administration PostgreSQL (optionnel)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    ports:
+      - "8080:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@sms-pro.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:

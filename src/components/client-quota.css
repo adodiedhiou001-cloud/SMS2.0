@@ -1,0 +1,6 @@
+/* Styles pour le composant ClientQuota */
+
+.quota-progress-bar {
+  width: var(--progress-width, 0%);
+  transition: width 0.3s ease-in-out;
+}

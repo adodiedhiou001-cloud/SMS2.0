@@ -1,0 +1,12 @@
+/* Styles pour la page des groupes */
+
+/* Couleurs dynamiques pour les groupes */
+.group-icon {
+  --group-color: #3B82F6; /* couleur par défaut */
+  background-color: var(--group-color);
+}
+
+.color-picker-button {
+  --picker-color: #3B82F6; /* couleur par défaut */
+  background-color: var(--picker-color);
+}

@@ -1,0 +1,7 @@
+/* Styles pour le dashboard */
+
+/* Avatar avec couleur dynamique */
+.contact-avatar {
+  --avatar-color: #6B7280; /* couleur par défaut */
+  background-color: var(--avatar-color);
+}

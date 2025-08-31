@@ -1,0 +1,200 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  users         User[]
+  contacts      Contact[]
+  contactGroups ContactGroup[]
+  campaigns     Campaign[]
+  templates     Template[]
+  apiKeys       ApiKey[]
+  auditLogs     AuditLog[]
+
+  @@map("organizations")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  username       String   @unique
+  email          String?  @unique
+  passwordHash   String
+  role           String   @default("user")
+  organizationId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  campaigns    Campaign[]
+  templates    Template[]
+  auditLogs    AuditLog[]
+
+  @@map("users")
+}
+
+model ContactGroup {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  color       String?  @default("#3B82F6")
+  icon        String?  @default("Users")
+  organizationId String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  contacts     Contact[]
+
+  @@map("contact_groups")
+}
+
+model Contact {
+  id             String   @id @default(cuid())
+  firstName      String
+  lastName       String
+  phone          String
+  email          String?
+  company        String?
+  address        String?
+  dateOfBirth    DateTime?
+  notes          String?
+  tags           String?  // JSON array of strings
+  organizationId String
+  groupId        String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  group        ContactGroup? @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  messages     Message[]
+
+  @@index([phone])
+  @@index([groupId])
+  @@map("contacts")
+}
+
+model Campaign {
+  id             String    @id @default(cuid())
+  name           String
+  message        String
+  status         String    @default("draft")
+  scheduledAt    DateTime?
+  sentAt         DateTime?
+  organizationId String
+  createdBy      String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [createdBy], references: [id])
+  messages     Message[]
+
+  @@map("campaigns")
+}
+
+model Message {
+  id         String    @id @default(cuid())
+  content    String
+  status     String    @default("pending")
+  sentAt     DateTime?
+  contactId  String?
+  campaignId String?
+  phoneNumber String?  // Numéro de téléphone destination
+  provider   String?   // Provider SMS utilisé (Orange, etc.)
+  externalId String?   // ID du message chez le provider
+  metadata   String?   // Données JSON pour détails supplémentaires
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  // Relations
+  contact  Contact?  @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  campaign Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([phoneNumber])
+  @@map("messages")
+}
+
+model Template {
+  id             String   @id @default(cuid())
+  name           String
+  content        String
+  category       String   @default("general")
+  channel        String   @default("sms") // sms, whatsapp
+  isActive       Boolean  @default(true)
+  isSystem       Boolean  @default(false) // Templates système non modifiables
+  tags           String?  // JSON array pour les tags de recherche
+  variables      String?  // JSON array des variables disponibles
+  promoCode      String?  // Code promo inclus dans le template
+  promoValue     String?  // Valeur de la promo (ex: "25%", "10€")
+  promoExpiry    DateTime? // Date d'expiration de la promo
+  organizationId String
+  createdBy      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User?         @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@index([category])
+  @@index([channel])
+  @@index([organizationId])
+  @@map("templates")
+}
+
+model ApiKey {
+  id             String   @id @default(cuid())
+  name           String
+  keyHash        String   @unique
+  permissions    String   @default("read")
+  organizationId String
+  isActive       Boolean  @default(true)
+  lastUsedAt     DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("api_keys")
+}
+
+model AuditLog {
+  id             String   @id @default(cuid())
+  action         String
+  resource       String
+  resourceId     String?
+  userId         String?
+  organizationId String
+  metadata       String?  // JSON string
+  ipAddress      String?
+  userAgent      String?
+  createdAt      DateTime @default(now())
+
+  // Relations
+  user         User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
